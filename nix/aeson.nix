@@ -4,17 +4,17 @@
 , hashable, hashable-time, integer-logarithms, primitive
 , QuickCheck, quickcheck-instances, scientific, stdenv, tagged
 , tasty, tasty-golden, tasty-hunit, tasty-quickcheck
-, template-haskell, text, th-abstraction, time, time-compat
+, template-haskell, text, th-abstraction, time, time-locale-compat
 , unordered-containers, uuid-types, vector
 }:
 mkDerivation {
   pname = "aeson";
-  version = "1.4.6.0";
-  sha256 = "923fb2c6e224c4c0d1848174b1010592f31cd149f538923efd87f8a6b4b3488b";
+  version = "1.4.3.0";
+  sha256 = "6564ac0fb429cd4bcafc706fa4b905dab94f57f765ebd96a65c9ba4b9e520c19";
   libraryHaskellDepends = [
     attoparsec base base-compat bytestring containers contravariant
     deepseq dlist ghc-prim hashable primitive scientific tagged
-    template-haskell text th-abstraction time time-compat
+    template-haskell text th-abstraction time time-locale-compat
     unordered-containers uuid-types vector
   ];
   testHaskellDepends = [
@@ -23,7 +23,7 @@ mkDerivation {
     generic-deriving ghc-prim hashable hashable-time integer-logarithms
     QuickCheck quickcheck-instances scientific tagged tasty
     tasty-golden tasty-hunit tasty-quickcheck template-haskell text
-    time time-compat unordered-containers uuid-types vector
+    time time-locale-compat unordered-containers uuid-types vector
   ];
   homepage = "https://github.com/bos/aeson";
   description = "Fast JSON parsing and encoding";
