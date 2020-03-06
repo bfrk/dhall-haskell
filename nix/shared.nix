@@ -115,6 +115,7 @@ let
                     mkDerivation =
                       args: haskellPackagesOld.mkDerivation (args // {
                           doCheck = false;
+                          enableLibraryProfiling = false;
                         }
                       );
 
