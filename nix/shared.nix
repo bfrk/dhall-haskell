@@ -118,6 +118,9 @@ let
                         }
                       );
 
+                    aeson =
+                      pkgsNew.haskell.lib.disableLibraryProfiling haskellPackagesOld.aeson;
+
                     dhall =
                       applyCoverage
                         (haskellPackagesNew.callCabal2nix
