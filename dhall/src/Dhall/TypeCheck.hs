@@ -298,7 +298,7 @@ infer typer = loop
                         else do
                             let _A₀'' = quote names _A₀'
                             let _A₁'' = quote names _A₁'
-                            die (AnnotMismatch a₀ _A₀'' _A₁'')
+                            Left (TypeError context a₀ (AnnotMismatch a₀ _A₀'' _A₁''))
 
                     return (addTypeValue x _A₀' a₀' ctx)
 
@@ -600,8 +600,6 @@ infer typer = loop
                                     -- to just the offending element
                                     let err = MismatchedListElements (i+1) _T₀'' t₁ _T₁''
 
-                                    let context = ctxToContext ctx
-
                                     Left (TypeError context t₁ err)
 
                     traverseWithIndex_ process ts₁
@@ -902,13 +900,21 @@ infer typer = loop
 
             xLs' <- case _L' of
                 VRecord xLs' -> return xLs'
-                _            -> die (MustCombineARecord '⫽' l r)
+
+                _            -> do
+                    let _L'' = quote names _L'
+
+                    die (MustCombineARecord '⫽' l _L'')
 
             _R' <- loop ctx r
 
             xRs' <- case _R' of
                 VRecord xRs' -> return xRs'
-                _            -> die (MustCombineARecord '⫽' l r)
+
+                _            -> do
+                    let _R'' = quote names _R'
+
+                    die (MustCombineARecord '⫽' r _R'')
 
             return (VRecord (Dhall.Map.union xRs' xLs'))
 
@@ -1277,8 +1283,8 @@ infer typer = loop
             return (eval values (typer p))
       where
         die err = Left (TypeError context expression err)
-          where
-            context = ctxToContext ctx
+
+        context = ctxToContext ctx
 
         names = typesToNames types
 
